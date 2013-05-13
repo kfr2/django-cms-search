@@ -83,9 +83,9 @@ def page_index_factory(language_code, proxy_model):
         def get_model(self):
             return proxy_model
 
-        def index_queryset(self):
+        def index_queryset(self, using=None):
             # get the correct language and exclude pages that have a redirect
-            base_qs = super(_PageIndex, self).index_queryset()
+            base_qs = super(_PageIndex, self).index_queryset(using)
             result_qs = EmptyQuerySet()
             for site_obj in Site.objects.all():
                 qs = base_qs.published(site=site_obj.id).filter(
